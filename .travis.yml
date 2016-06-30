@@ -24,5 +24,6 @@ addons:
     - libssl-dev
     - python-dev
     - prelink
-
+deploy:
+  - grr_client_build build --output built_templates
 
