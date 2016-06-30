@@ -9,16 +9,15 @@ python:
 before_install:
 - /bin/bash travis/install_protobuf.sh
 env:
-- PROTOC="${HOME}/protobuf/bin/protoc"
 # From https://goo.gl/XuEMpi GCP CD with travis
-- PATH=$PATH:${HOME}/google-cloud-sdk/bin CLOUDSDK_CORE_DISABLE_PROMPTS=1
+- PROTOC="${HOME}/protobuf/bin/protoc" PATH=$PATH:${HOME}/google-cloud-sdk/bin CLOUDSDK_CORE_DISABLE_PROMPTS=1
 install:
-- pip install --upgrade pip wheel setuptools
-- pip install -e .
-- pip install -e grr/config/grr-response-server/
-- pip install -e grr/config/grr-response-test/
-- python makefile.py
-- cd grr/artifacts && python makefile.py && cd -
+#- pip install --upgrade pip wheel setuptools
+#- pip install -e .
+#- pip install -e grr/config/grr-response-server/
+#- pip install -e grr/config/grr-response-test/
+#- python makefile.py
+#- cd grr/artifacts && python makefile.py && cd -
 #script: grr_run_tests --processes=2
 script: echo "dummy"
 addons:
