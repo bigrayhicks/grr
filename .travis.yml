@@ -2,21 +2,25 @@ language: python
 sudo: false
 cache:
   directories:
-    - $HOME/.cache/pip
-    - $HOME/protobuf
+  - $HOME/.cache/pip
+  - $HOME/protobuf
 python:
-  - "2.7"
-before_install: /bin/bash travis/install_protobuf.sh
+- '2.7'
+before_install:
+- /bin/bash travis/install_protobuf.sh
 env:
-  - PROTOC="${HOME}/protobuf/bin/protoc"
+- PROTOC="${HOME}/protobuf/bin/protoc"
+# From https://goo.gl/XuEMpi GCP CD with travis
+- PATH=$PATH:${HOME}/google-cloud-sdk/bin CLOUDSDK_CORE_DISABLE_PROMPTS=1
 install:
-  - pip install --upgrade pip wheel setuptools
-  - pip install -e .
-  - pip install -e grr/config/grr-response-server/
-  - pip install -e grr/config/grr-response-test/
-  - python makefile.py
-  - cd grr/artifacts && python makefile.py && cd -
-script: grr_run_tests --processes=2
+- pip install --upgrade pip wheel setuptools
+- pip install -e .
+- pip install -e grr/config/grr-response-server/
+- pip install -e grr/config/grr-response-test/
+- python makefile.py
+- cd grr/artifacts && python makefile.py && cd -
+#script: grr_run_tests --processes=2
+script: echo "dummy"
 addons:
   apt:
     packages:
@@ -24,7 +28,13 @@ addons:
     - libssl-dev
     - python-dev
     - prelink
-
 after_success:
-  - grr_client_build build --output built_templates
-
+#- grr_client_build build --output built_templates
+- mkdir built_templates && echo test${TRAVIS_BUILD_NUMBER} > built_templates/test
+# See https://docs.travis-ci.com/user/encrypting-files/
+- openssl aes-256-cbc -K $encrypted_03f64f0078dc_key -iv $encrypted_03f64f0078dc_iv
+  -in travis/travis_uploader_service_account.json.enc -out travis/travis_uploader_service_account.json
+  -d
+- gcloud auth activate-service-account --key-file travis/travis_uploader_service_account.json
+- gsutil -m cp built_templates/* gs://autobuilds.grr-response.com/${TRAVIS_BUILD_NUMBER}/
+- shred -u travis/travis_uploader_service_account.json
