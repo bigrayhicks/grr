@@ -19,16 +19,9 @@ install:
 #- python makefile.py
 #- cd grr/artifacts && python makefile.py && cd -
 #script: grr_run_tests --processes=2
-script: echo "dummy"
-addons:
-  apt:
-    packages:
-    - libffi-dev
-    - libssl-dev
-    - python-dev
-    - prelink
-after_success:
+script:
 #- grr_client_build build --output built_templates
+- wget https://dl.google.com/dl/cloudsdk/channels/rapid/downloads/google-cloud-sdk-116.0.0-linux-x86_64.tar.gz && tar zxvf google-cloud-sdk-116.0.0-linux-x86_64.tar.gz -C ${HOME}
 - mkdir built_templates && echo test${TRAVIS_BUILD_NUMBER} > built_templates/test
 # See https://docs.travis-ci.com/user/encrypting-files/
 - openssl aes-256-cbc -K $encrypted_03f64f0078dc_key -iv $encrypted_03f64f0078dc_iv
@@ -37,3 +30,12 @@ after_success:
 - gcloud auth activate-service-account --key-file travis/travis_uploader_service_account.json
 - gsutil -m cp built_templates/* gs://autobuilds.grr-response.com/${TRAVIS_BUILD_NUMBER}/
 - shred -u travis/travis_uploader_service_account.json
+addons:
+  apt:
+    packages:
+    - libffi-dev
+    - libssl-dev
+    - python-dev
+    - prelink
+after_success:
+
