@@ -8,18 +8,16 @@
 # There is already a travis gcs deployer but it isn't usable:
 # https://github.com/travis-ci/dpl/issues/476
 #
-# We need to use the deploy script provider because after_success doesn't exit
-# on error:
+# We need to use the (currently experimental) deploy script provider because
+# after_success doesn't exit on error:
 # https://github.com/travis-ci/travis-ci/issues/758
 
 set -e
 
-# grr_client_build build --output built_templates
+grr_client_build build --output built_templates
 
 # If we don't have the sdk, go get it, this will be cached on the next run.
 gcloud version || ( wget -q https://dl.google.com/dl/cloudsdk/channels/rapid/downloads/google-cloud-sdk-116.0.0-linux-x86_64.tar.gz && tar xvf google-cloud-sdk-116.0.0-linux-x86_64.tar.gz -C ${HOME} )
-# temp, remove
-mkdir built_templates && echo test${TRAVIS_JOB_NUMBER} > built_templates/test
 
 # See https://docs.travis-ci.com/user/encrypting-files/
 openssl aes-256-cbc -K $encrypted_03f64f0078dc_key \

@@ -22,8 +22,9 @@ install:
 #script: grr_run_tests --processes=2
 script:
   - echo test
-#  - /bin/bash travis/deploy_to_gcs.sh
-# This should work but it doesn't
+# If this fails, you will need to move the deploy script into the script section
+# above to debug it:
+# https://github.com/travis-ci/dpl/issues/477
 deploy:
   provider: script
   script: travis/deploy_to_gcs.sh
