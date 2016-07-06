@@ -19,8 +19,9 @@ cache:
 before_install:
 - if [[ "$TRAVIS_OS_NAME" == "linux" ]]; then /bin/bash travis/install_protobuf.sh; fi
 - if [[ "$TRAVIS_OS_NAME" == "osx" ]]; then brew update && brew install python protobuf && brew install libffi; fi
-- virtualenv ${HOME}/INSTALL && source ${HOME}/INSTALL/bin/activate
+- virtualenv ${HOME}/INSTALL
 install:
+- source ${HOME}/INSTALL/bin/activate
 - pip install --upgrade pip wheel setuptools
 - pip install -e .
 - pip install -e grr/config/grr-response-server/
