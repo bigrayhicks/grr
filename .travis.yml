@@ -21,12 +21,13 @@ install:
 #- cd grr/artifacts && python makefile.py && cd -
 #script: grr_run_tests --processes=2
 script:
-  - echo asdf
-deploy:
-  provider: script
-  script: /bin/bash travis/deploy_to_gcs.sh
-  on:
-    branch: travis-testing
+  - /bin/bash travis/deploy_to_gcs.sh
+# This should work but it doesn't
+#deploy:
+#  provider: script
+#  script:/bin/bash travis/deploy_to_gcs.sh
+#  on:
+#    branch: travis-testing
 addons:
   apt:
     packages:
