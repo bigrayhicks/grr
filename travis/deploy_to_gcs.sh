@@ -14,7 +14,7 @@
 
 set -e
 
-source INSTALL/bin/activate
+source ${HOME}/INSTALL/bin/activate
 grr_client_build build --output built_templates
 
 # If we don't have the sdk, go get it, this will be cached on the next run.

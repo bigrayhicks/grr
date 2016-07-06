@@ -4,10 +4,13 @@ matrix:
     language: python
     python: 2.7
     sudo: false
+    # From https://goo.gl/XuEMpi GCP CD with travis
+    env: PROTOC="${HOME}/protobuf/bin/protoc" PATH=$PATH:${HOME}/google-cloud-sdk/bin CLOUDSDK_CORE_DISABLE_PROMPTS=1
   - os: osx
     language: generic
     python: 2.7
     sudo: false
+    env: PATH=$PATH:${HOME}/google-cloud-sdk/bin CLOUDSDK_CORE_DISABLE_PROMPTS=1
 cache:
   directories:
   - $HOME/.cache/pip
@@ -16,10 +19,7 @@ cache:
 before_install:
 - if [[ "$TRAVIS_OS_NAME" == "linux" ]]; then /bin/bash travis/install_protobuf.sh; fi
 - if [[ "$TRAVIS_OS_NAME" == "osx" ]]; then brew update && brew install python protobuf && brew install libffi; fi
-- virtualenv INSTALL && source INSTALL/bin/activate
-env:
-# From https://goo.gl/XuEMpi GCP CD with travis
-- PROTOC="${HOME}/protobuf/bin/protoc" PATH=$PATH:${HOME}/google-cloud-sdk/bin CLOUDSDK_CORE_DISABLE_PROMPTS=1
+- virtualenv ${HOME}/INSTALL && source ${HOME}/INSTALL/bin/activate
 install:
 - pip install --upgrade pip wheel setuptools
 - pip install -e .
