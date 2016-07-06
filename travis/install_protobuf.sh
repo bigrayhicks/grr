@@ -11,7 +11,7 @@ if [ ! -d "$HOME/protobuf/lib" ]; then
   cwd=$(pwd)
   cd "${HOME}"
   wget "https://github.com/google/protobuf/releases/download/v${VERSION}/protobuf-${VERSION}.tar.gz"
-  tar -xzvf "protobuf-${VERSION}.tar.gz"
+  tar -xzf "protobuf-${VERSION}.tar.gz"
   cd "protobuf-${VERSION}"
   ./configure --prefix="$HOME/protobuf" && make && make install
   cd "${cwd}"
