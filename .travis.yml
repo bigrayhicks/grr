@@ -21,7 +21,7 @@ install:
 #- cd grr/artifacts && python makefile.py && cd -
 #script: grr_run_tests --processes=2
 script:
-  - travis/deploy_to_gcs.sh
+  - /bin/bash travis/deploy_to_gcs.sh
 #deploy:
 #  provider: script
 #  script: travis/deploy_to_gcs.sh
