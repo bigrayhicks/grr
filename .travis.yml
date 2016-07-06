@@ -1,11 +1,13 @@
-sudo: false
-python: 2.7
 matrix:
   include:
   - os: linux
     language: python
+    python: 2.7
+    sudo: false
   - os: osx
     language: generic
+    python: 2.7
+    sudo: false
 cache:
   directories:
   - $HOME/.cache/pip
@@ -13,7 +15,7 @@ cache:
   - $HOME/google-cloud-sdk
 before_install:
 - if [[ "$TRAVIS_OS_NAME" == "linux" ]]; then /bin/bash travis/install_protobuf.sh; fi
-- if [[ "$TRAVIS_OS_NAME" == "osx" ]]; then brew update && brew install python protobuf; fi
+- if [[ "$TRAVIS_OS_NAME" == "osx" ]]; then brew update && brew install python protobuf && brew install libffi; fi
 - virtualenv INSTALL && source INSTALL/bin/activate
 env:
 # From https://goo.gl/XuEMpi GCP CD with travis

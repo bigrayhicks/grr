@@ -8,7 +8,7 @@ set -x
 
 INSTALL_USER="vagrant"
 
-function system_update() {
+function xcode_select() {
   sudo xcode-select -switch /usr/bin
 }
 
@@ -66,7 +66,7 @@ case $EUID in
     sudo -u "$INSTALL_USER" -i "$0"  # script calling itself as the vagrant user
     ;;
   *)
-    system_update
+    xcode_select
     install_homebrew
     brew install protobuf
     brew install libffi
