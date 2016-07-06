@@ -25,6 +25,8 @@ script:
 deploy:
   provider: script
   script: travis/deploy_to_gcs.sh
+  on:
+    branch: travis-testing
 addons:
   apt:
     packages:
