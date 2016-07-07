@@ -23,17 +23,16 @@ before_install:
 - virtualenv ${HOME}/INSTALL
 install:
 - /bin/bash travis/install.sh
-- /bin/bash travis/deploy_to_gcs.sh
 #script: grr_run_tests --processes=2
 script: echo test
 # If the deploy script fails, you will need to move it into the script section
 # above to debug it:
 # https://github.com/travis-ci/dpl/issues/477
-#deploy:
-#  provider: script
-#  script: travis/deploy_to_gcs.sh
-#  on:
-#    branch: travis-testing
+deploy:
+  provider: script
+  script: travis/deploy_to_gcs.sh
+  on:
+    branch: travis-testing
 addons:
   apt:
     packages:
