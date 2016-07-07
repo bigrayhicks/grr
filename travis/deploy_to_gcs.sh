@@ -17,7 +17,9 @@ set -e
 source ${HOME}/INSTALL/bin/activate
 grr_client_build build --output built_templates
 
-# If we don't have the sdk, go get it, this will be cached on the next run.
+# If we don't have the sdk, go get it. While we could cache the cloud sdk
+# directory it may contain authentication tokens after the authorization step
+# below, so we don't.
 gcloud version || ( wget -q https://dl.google.com/dl/cloudsdk/channels/rapid/downloads/google-cloud-sdk-116.0.0-linux-x86_64.tar.gz && tar xvf google-cloud-sdk-116.0.0-linux-x86_64.tar.gz -C ${HOME} )
 
 # See https://docs.travis-ci.com/user/encrypting-files/
