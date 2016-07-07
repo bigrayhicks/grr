@@ -4,42 +4,27 @@ matrix:
     language: python
     python: 2.7
     sudo: false
-    # From https://goo.gl/XuEMpi GCP CD with travis
-    env: PROTOC="${HOME}/protobuf/bin/protoc" PATH=$PATH:${HOME}/google-cloud-sdk/bin CLOUDSDK_CORE_DISABLE_PROMPTS=1
-  - os: osx
-    osx_image: beta-xcode6.2
-    language: generic
-    python: 2.7
-    sudo: required
-    env: PROTOC="${HOME}/protobuf/bin/protoc" PATH=$PATH:${HOME}/google-cloud-sdk/bin CLOUDSDK_CORE_DISABLE_PROMPTS=1
 cache:
   directories:
   - $HOME/.cache/pip
-  - $HOME/protobuf
-  - $HOME/Library/Caches/Homebrew
 before_install:
-- /bin/bash travis/install_protobuf.sh
-- if [[ "$TRAVIS_OS_NAME" == "osx" ]]; then brew update && git clone https://github.com/MacPython/terryfy && source terryfy/travis_tools.sh; get_python_environment macpython 2.7.11 && brew install libffi; fi
-- python --version; pip --version
+- python --version
 - pip install --upgrade pip virtualenv
+- pip --version
 - virtualenv ${HOME}/INSTALL
 install:
-- /bin/bash travis/install.sh
-- /bin/bash travis/deploy_to_gcs.sh
-#script: grr_run_tests --processes=2
+- source ${HOME}/INSTALL/bin/activate && pip install psutil
+- find ${HOME}/INSTALL -exec -type f -exec md5sum {} + > md5s.install
 script: echo test
 # If the deploy script fails, you will need to move it into the script section
 # above to debug it:
-#deploy:
-#  provider: script
-#  script: travis/deploy_to_gcs.sh
-#  on:
-#    branch: travis-testing
+deploy:
+  provider: script
+  script: travis/deploy.sh
+  on:
+    branch: travis-bug-report
 addons:
   apt:
     packages:
-    - libffi-dev
-    - libssl-dev
     - python-dev
-    - prelink
 
