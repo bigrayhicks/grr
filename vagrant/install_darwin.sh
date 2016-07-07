@@ -68,7 +68,7 @@ case $EUID in
   *)
     xcode_select
     install_homebrew
-    brew install homebrew/versions/protobuf260
+    brew install protobuf
     brew install libffi
     install_python
     install_python_deps
