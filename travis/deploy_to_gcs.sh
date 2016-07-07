@@ -23,6 +23,15 @@ set -e
 
 source ${HOME}/INSTALL/bin/activate
 pip freeze
+
+# Temporary workaround until we migrate off PackageMaker.
+if [[ "$TRAVIS_OS_NAME" == "osx" ]]; then
+  cd /Applications
+  wget -q https://storage.googleapis.com/grr-osx-buildtools/packagemaker.tar.gz
+  tar zxf packagemaker.tar.gz
+  cd -
+fi
+
 grr_client_build build --output built_templates
 
 # If we don't have the sdk, go get it. While we could cache the cloud sdk
