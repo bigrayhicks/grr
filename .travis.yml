@@ -17,8 +17,8 @@ cache:
   - $HOME/protobuf
   - $HOME/google-cloud-sdk
 before_install:
-- if [[ "$TRAVIS_OS_NAME" == "linux" ]]; then /bin/bash travis/install_protobuf.sh; fi
-- if [[ "$TRAVIS_OS_NAME" == "osx" ]]; then brew update && brew install python protobuf && brew install libffi; fi
+- /bin/bash travis/install_protobuf.sh
+- if [[ "$TRAVIS_OS_NAME" == "osx" ]]; then brew update && git clone https://github.com/MacPython/terryfy && source terryfy/travis_tools.sh; get_python_environment macpython 2.7.11 && pip install virtualenv && brew install libffi; fi
 - virtualenv ${HOME}/INSTALL
 install:
 - source ${HOME}/INSTALL/bin/activate && \
