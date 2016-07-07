@@ -13,6 +13,7 @@
 # https://github.com/travis-ci/travis-ci/issues/758
 
 set -e
+set -x
 
 source ${HOME}/INSTALL/bin/activate
 grr_client_build build --output built_templates
