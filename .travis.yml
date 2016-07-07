@@ -13,7 +13,8 @@ before_install:
 - pip --version
 - virtualenv ${HOME}/INSTALL
 install:
-- source ${HOME}/INSTALL/bin/activate && pip install psutil
+- source ${HOME}/INSTALL/bin/activate && pip install -e psutil
+- ls -lah ${HOME}/INSTALL
 - find ${HOME}/INSTALL -type f -exec md5sum {} + > ${HOME}/md5s.install
 script: echo test
 # If the deploy script fails, you will need to move it into the script section
@@ -23,6 +24,9 @@ deploy:
   script: travis/deploy.sh
   on:
     branch: travis-bug-report
+after_deploy:
+  - cd ${HOME} && diff md5s.install md5s.deploy
+  - ls -lah ${HOME}/INSTALL
 addons:
   apt:
     packages:
