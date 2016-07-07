@@ -1,10 +1,11 @@
 #!/bin/bash
 
-# $Id: $
+# Install grr into a virtualenv
 
 set -e
 set -x
 
+export ARCHFLAGS="-arch x86_64"
 source ${HOME}/INSTALL/bin/activate
 pip install --upgrade pip wheel setuptools
 pip install -e .

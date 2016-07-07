@@ -16,6 +16,7 @@ set -e
 set -x
 
 source ${HOME}/INSTALL/bin/activate
+pip freeze
 grr_client_build build --output built_templates
 
 # If we don't have the sdk, go get it. While we could cache the cloud sdk
