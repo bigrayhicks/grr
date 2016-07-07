@@ -9,7 +9,8 @@
 # https://github.com/travis-ci/dpl/issues/476
 #
 # I also attempted to use the experimental script deployer but there were
-# differences between the virtual env in the deploy and install stages:
+# differences between the virtual env in the deploy and install stages that
+# caused the install to fail.
 #
 # and it's also hard to debug:
 # https://github.com/travis-ci/dpl/issues/477
