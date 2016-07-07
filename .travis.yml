@@ -7,7 +7,8 @@ matrix:
     # From https://goo.gl/XuEMpi GCP CD with travis
     env: PROTOC="${HOME}/protobuf/bin/protoc" PATH=$PATH:${HOME}/google-cloud-sdk/bin CLOUDSDK_CORE_DISABLE_PROMPTS=1
   - os: osx
-    osx_image: beta-xcode6.3
+    # psutil fails to install on the default beta-xcode6.1
+    osx_image: beta-xcode6.2
     language: generic
     python: 2.7
     sudo: required
