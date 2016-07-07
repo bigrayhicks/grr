@@ -18,6 +18,7 @@ cache:
 before_install:
 - /bin/bash travis/install_protobuf.sh
 - if [[ "$TRAVIS_OS_NAME" == "osx" ]]; then brew update && git clone https://github.com/MacPython/terryfy && source terryfy/travis_tools.sh; get_python_environment macpython 2.7.11 && brew install libffi; fi
+- python --version
 - virtualenv ${HOME}/INSTALL
 install:
 - /bin/bash travis/install.sh
