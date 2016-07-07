@@ -8,12 +8,17 @@
 # There is already a travis gcs deployer but it isn't usable:
 # https://github.com/travis-ci/dpl/issues/476
 #
+# I also attempted to use the experimental script deployer but there were
+# differences between the virtual env in the deploy and install stages:
+#
+# and it's also hard to debug:
+# https://github.com/travis-ci/dpl/issues/477
+#
 # We need to use the (currently experimental) deploy script provider because
 # after_success doesn't exit on error:
 # https://github.com/travis-ci/travis-ci/issues/758
 
 set -e
-set -x
 
 source ${HOME}/INSTALL/bin/activate
 pip freeze
