@@ -28,6 +28,13 @@ install:
 - /bin/bash travis/deploy_to_gcs.sh
 #script: grr_run_tests --processes=2
 script: echo test
+# If the deploy script fails, you will need to move it into the script section
+# above to debug it:
+#deploy:
+#  provider: script
+#  script: travis/deploy_to_gcs.sh
+#  on:
+#    branch: travis-testing
 addons:
   apt:
     packages:
