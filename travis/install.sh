@@ -18,5 +18,5 @@ pip install -e grr/config/grr-response-client/
 python makefile.py
 cd grr/artifacts && python makefile.py && cd -
 
-
+pip freeze
 
