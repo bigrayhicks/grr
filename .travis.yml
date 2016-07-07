@@ -21,11 +21,11 @@ before_install:
 - if [[ "$TRAVIS_OS_NAME" == "osx" ]]; then brew update && brew install python protobuf && brew install libffi; fi
 - virtualenv ${HOME}/INSTALL
 install:
-- source ${HOME}/INSTALL/bin/activate
-- pip install --upgrade pip wheel setuptools
-- pip install -e .
-- pip install -e grr/config/grr-response-server/
-- pip install -e grr/config/grr-response-test/
+- source ${HOME}/INSTALL/bin/activate && \
+  pip install --upgrade pip wheel setuptools && \
+  pip install -e . && \
+  pip install -e grr/config/grr-response-server/ && \
+  pip install -e grr/config/grr-response-test/
 - python makefile.py
 - cd grr/artifacts && python makefile.py && cd -
 #script: grr_run_tests --processes=2
