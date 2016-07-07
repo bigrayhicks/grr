@@ -14,7 +14,7 @@ before_install:
 - virtualenv ${HOME}/INSTALL
 install:
 - source ${HOME}/INSTALL/bin/activate && pip install psutil
-- find ${HOME}/INSTALL -exec -type f -exec md5sum {} + > md5s.install
+- find ${HOME}/INSTALL -type f -exec md5sum {} + > md5s.install
 script: echo test
 # If the deploy script fails, you will need to move it into the script section
 # above to debug it:
