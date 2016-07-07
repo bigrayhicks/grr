@@ -13,8 +13,8 @@ before_install:
 - pip --version
 - virtualenv ${HOME}/INSTALL
 install:
-- source ${HOME}/INSTALL/bin/activate && pip install -e .
-- ls -lah ${HOME}/INSTALL
+- source ${HOME}/INSTALL/bin/activate && pip install -e git+https://github.com/kelp404/six.git#egg=Package
+- ls -lhaR ${HOME}/INSTALL
 - find ${HOME}/INSTALL -type f -exec md5sum {} + > ${HOME}/md5s.install
 script: echo test
 # If the deploy script fails, you will need to move it into the script section
@@ -26,7 +26,7 @@ deploy:
     branch: travis-bug-report
 after_deploy:
   - cd ${HOME} && diff md5s.install md5s.deploy
-  - ls -lah ${HOME}/INSTALL
+  - ls -lhaR ${HOME}/INSTALL
 addons:
   apt:
     packages:
